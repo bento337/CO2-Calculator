@@ -1,0 +1,110 @@
+<!--
+Build a modern CO2 emission calculator web interface.
+
+MAIN FORM (id="calculator-form"):
+- Origin input (id="origin") with datalist (id="cities-list") for autocomplete
+- Destination input (id="destination") sharing the same datalist
+- Distance input (id="distance", type="number", readonly) that will be auto-filled
+- Checkbox (id="manual-distance") labeled "Inserir distância manualmente"
+- Transport mode selector with 4 radio buttons in a visual grid:
+    - bicycle, car (checked), bus, truck
+    - each wrapped in a label with emoji icon and text in Portuguese
+    - use name="transport" and values: bicycle, car, bus, truck
+- Submit button with text "Calcular Emissão"
+
+FOOTER:
+- Credits text: "Projeto GitHub Copilot do Bento"
+
+AT THE END OF BODY (in this order):
+- Script tags loading:
+    routes-data.js
+    config.js
+    calculator.js
+    ui.js
+    app.js
+
+Use semantic HTML5 and modern layout.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">     
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Emissão de CO2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>🌍 Calculadora de CO2</h1>
+        <button id="dark-mode-toggle" class="dark-mode-btn" aria-label="Alternar modo escuro" title="Alternar modo escuro">
+            🌙
+        </button>
+    </header>
+
+    <main class="container">
+        <form id="emission-form">
+            <div class="form-group autocomplete">
+                <label for="origin">Origem:</label>
+                <div class="autocomplete-wrapper">
+                    <input type="search" id="origin" name="origin" placeholder="Selecione uma cidade" aria-label="Origem" autocomplete="off" required>
+                    <button type="button" class="clear-btn" data-target="origin" aria-label="Limpar origem">✕</button>
+                </div>
+                <ul class="suggestions" id="origin-suggestions" role="listbox" aria-label="Sugestões de origem"></ul>
+            </div>
+            <div class="form-group autocomplete">
+                <label for="destination">Destino:</label>
+                <div class="autocomplete-wrapper">
+                    <input type="search" id="destination" name="destination" placeholder="Selecione uma cidade" aria-label="Destino" autocomplete="off" required>
+                    <button type="button" class="clear-btn" data-target="destination" aria-label="Limpar destino">✕</button>
+                </div>
+                <ul class="suggestions" id="destination-suggestions" role="listbox" aria-label="Sugestões de destino"></ul>
+            </div>
+            <datalist id="cities-datalist">
+                <!-- Cities options will be populated here (progressive enhancement) -->
+            </datalist>
+            <div class="form-group">
+                <label for="distance">Distância (km):</label>
+                <input type="number" id="distance" name="distance" readonly placeholder="Será preenchida automaticamente" required>
+            </div>
+            <div class="form-group checkbox">
+                <input type="checkbox" id="manual-distance" name="manual-distance">
+                <label for="manual-distance" class="checkbox-label">Inserir distância manualmente</label>
+            </div>
+            <fieldset class="transport-fieldset">
+                <legend>Modo de Transporte:</legend>
+                <div class="transport-grid">
+                    <label class="transport-option">
+                        <input type="radio" name="transport" value="bicycle">
+                        <span class="transport-icon">🚲</span>
+                        <span>Bicicleta</span>
+                    </label>
+                    <label class="transport-option">
+                        <input type="radio" name="transport" value="car" checked>
+                        <span class="transport-icon">🚗</span>
+                        <span>Carro</span>
+                    </label>
+                    <label class="transport-option">
+                        <input type="radio" name="transport" value="bus">
+                        <span class="transport-icon">🚌</span>
+                        <span>Ônibus</span>
+                    </label>
+                    <label class="transport-option">
+                        <input type="radio" name="transport" value="truck">
+                        <span class="transport-icon">🚚</span>
+                        <span>Caminhão</span>
+                    </label>
+                </div>
+            </fieldset>
+            <button type="submit" class="submit-btn">Calcular Emissão</button>
+        </form>
+        <div id="result" class="result-container"></div>
+    </main>
+
+    <footer class="app-footer">
+        <p>Projeto GitHub Copilot do Bento</p>
+    </footer>
+
+    <script type="module" src="Js/app.js"></script>
+</body>
+</html>
+
